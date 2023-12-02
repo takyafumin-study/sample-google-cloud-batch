@@ -10,13 +10,13 @@ tz_tokyo = ZoneInfo("Asia/Tokyo")
 args = sys.argv
 
 now = datetime.now(tz_tokyo)
-print(f"main.py:ジョブ開始時間:{now.strftime('%x %X')}")
+print(f"job1.py:ジョブ開始時間:{now.strftime('%x %X')}")
 if 1 < len(args):
-    print(f"main.py:引数:{args[1]}")
+    print(f"job1.py:引数:{args[1]}")
 
 # 5秒待機
 time.sleep(5)
 
 now = datetime.now(tz_tokyo)
-print(f"main.py:ジョブ終了時間:{now.strftime('%x %X')}")
+print(f"job1.py:ジョブ終了時間:{now.strftime('%x %X')}")
 

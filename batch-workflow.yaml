@@ -6,44 +6,71 @@ main:
           - projectId: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
           - region: "asia-northeast1"
           - imageUri: ${region + "-docker.pkg.dev/" + projectId + "/sample-google-cloud-batch-python-jobs/batch-image"}
-          - jobId: ${"batch-python-jobs-" + string(int(sys.now()))}
+          - jobId1: ${"batch-python-job1-" + string(int(sys.now()))}
+          - jobId2: ${"batch-python-job2-" + string(int(sys.now()))}
           - startTime: ${int(sys.now())}
-    - logCreateBatchJob:
+    - logCreateBatchJob1:
         call: sys.log
         args:
-          data: ${"Creating and running the batch job " + jobId}
-    - createAndRunBatchJob:
+          data: ${"Creating and running the batch job " + jobId1}
+    - createAndRunBatchJob1:
         # Batchジョブ作成
         call: googleapis.batch.v1.projects.locations.jobs.create
         args:
           parent: ${"projects/" + projectId + "/locations/" + region}
-          jobId: ${jobId}
+          jobId: ${jobId1}
           body:
             taskGroups:
               taskSpec:
                 runnables:
                   - container:
                       imageUri: ${imageUri}
-                      commands: ["job1"]
+                      commands: ["job1.py", "site1"]
                   - container:
                       imageUri: ${imageUri}
-                      commands: ["job2"]
-                  - container:
-                      imageUri: ${imageUri}
-                      commands: ["job3"]
+                      commands: ["job1.py", "site2"]
                 computeResource:
                   # CPU,メモリサイズ
-                  cpuMilli: 2000
-                  memoryMib: 2048
+                  cpuMilli: 1000
+                  memoryMib: 512
               taskCount: 1
               parallelism: 1
             logsPolicy:
               destination: CLOUD_LOGGING
-        result: createAndRunBatchJobResponse
-    - logDeleteBatchJob:
+        result: createAndRunBatchJobResponse1
+    - logCreateBatchJob2:
         call: sys.log
         args:
-          data: ${"Deleting the batch job " + jobId}
+          data: ${"Creating and running the batch job " + jobId2}
+    - createAndRunBatchJob2:
+        # Batchジョブ作成
+        call: googleapis.batch.v1.projects.locations.jobs.create
+        args:
+          parent: ${"projects/" + projectId + "/locations/" + region}
+          jobId: ${jobId2}
+          body:
+            taskGroups:
+              taskSpec:
+                runnables:
+                  - container:
+                      imageUri: ${imageUri}
+                      commands: ["job2.py", "site1"]
+                  - container:
+                      imageUri: ${imageUri}
+                      commands: ["job2.py", "site2"]
+                computeResource:
+                  # CPU,メモリサイズ
+                  cpuMilli: 1000
+                  memoryMib: 512
+              taskCount: 1
+              parallelism: 1
+            logsPolicy:
+              destination: CLOUD_LOGGING
+        result: createAndRunBatchJobResponse2
+    # - logDeleteBatchJob:
+    #     call: sys.log
+    #     args:
+    #       data: ${"Deleting the batch job " + jobId}
     # - deleteBatchJob:
     #     # Batchジョブ削除
     #     call: googleapis.batch.v1.projects.locations.jobs.delete
@@ -52,4 +79,6 @@ main:
     #     result: deleteResult
     - returnResult:
         return:
-          jobId: ${jobId}
+          jobId1: ${jobId1}
+          jobId2: ${jobId2}
+
