@@ -1,0 +1,30 @@
+{
+  "taskGroups": [{
+    "taskSpec": {
+      "runnables": [{
+        "container": {
+          "imageUri": "asia-northeast1-docker.pkg.dev/learngcp-406414/sample-google-cloud-batch-python-jobs/batch-image"
+        }
+      }],
+      "computeResource": {
+        "cpuMilli": 2000,
+        "memoryMib": 2048
+      },
+      "maxRetryCount": 2,
+      "maxRunDuration": "600s"
+    },
+    "taskCount": 1,
+    "parallelism": 1
+  }],
+  "allocationPolicy": {
+    "instances": [{
+      "policy": {
+        "machineType": "e2-micro",
+        "provisioningModel": "SPOT"
+      }
+    }]
+  },
+  "logsPolicy": {
+    "destination": "CLOUD_LOGGING"
+  }
+}

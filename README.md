@@ -12,9 +12,8 @@ Google Cloud Batchを利用するサンプル
 1. 実行コンテナ用のDockerfileを作成する
 1. Artifact Registryにコンテナを登録するビルド構成ファイルを作成する
 1. gcloudコマンドを使用してコンテナをビルドする
-    ```bash
-    gcloud builds submit --config cloudbuild.yaml --project {projectId}
-    ```
+1. gcloudコマンドを使用してバッチジョブ実行する
+
 
 ## 使い方
 
@@ -30,6 +29,18 @@ Google Cloud Batchを利用するサンプル
     ```bash
     deactivate
     ```
+
+### gcloudコマンドを使用してコンテナをビルドする
+
+```bash
+gcloud builds submit --config cloudbuild.yaml --project {projectId}
+```
+
+### バッチジョブ実行
+
+```bash
+gcloud batch jobs submit {jobName} --location asia-northeast1 --config batchjob.json
+```
 
 ## 参考情報
 
