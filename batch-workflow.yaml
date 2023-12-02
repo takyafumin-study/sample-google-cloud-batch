@@ -37,12 +37,12 @@ main:
         call: sys.log
         args:
           data: ${"Deleting the batch job " + jobId}
-    - deleteBatchJob:
-        # Batchジョブ削除
-        call: googleapis.batch.v1.projects.locations.jobs.delete
-        args:
-            name: ${"projects/" + projectId + "/locations/" + region + "/jobs/" + jobId}
-        result: deleteResult
+    # - deleteBatchJob:
+    #     # Batchジョブ削除
+    #     call: googleapis.batch.v1.projects.locations.jobs.delete
+    #     args:
+    #         name: ${"projects/" + projectId + "/locations/" + region + "/jobs/" + jobId}
+    #     result: deleteResult
     - returnResult:
         return:
           jobId: ${jobId}
