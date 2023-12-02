@@ -24,6 +24,13 @@ main:
                 runnables:
                   - container:
                       imageUri: ${imageUri}
+                      commands: ["job1"]
+                  - container:
+                      imageUri: ${imageUri}
+                      commands: ["job2"]
+                  - container:
+                      imageUri: ${imageUri}
+                      commands: ["job3"]
                 computeResource:
                   # CPU,メモリサイズ
                   cpuMilli: 2000
