@@ -9,6 +9,12 @@ Google Cloud Batchを利用するサンプル
     - Cloud Build API
 1. Artifact Registry リポジトリを作成する
 1. Batchジョブスクリプトを作成する
+1. 実行コンテナ用のDockerfileを作成する
+1. Artifact Registryにコンテナを登録するビルド構成ファイルを作成する
+1. gcloudコマンドを使用してコンテナをビルドする
+    ```bash
+    gcloud builds submit --config cloudbuild.yaml --project {projectId}
+    ```
 
 ## 使い方
 

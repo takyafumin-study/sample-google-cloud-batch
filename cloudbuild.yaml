@@ -1,0 +1,13 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'asia-northeast1-docker.pkg.dev/learngcp-406414/sample-google-cloud-batch-python-jobs/batch-image',
+        '.',
+      ]
+
+images:
+  - 'asia-northeast1-docker.pkg.dev/learngcp-406414/sample-google-cloud-batch-python-jobs/batch-image'
+
